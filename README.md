@@ -1,6 +1,6 @@
 **To get the project up and running, Pls Do the following After Cloning:**
 
-(PS) Web server used is XAMPP.
+(PS)I used PHP/Laravel Framework and XAMPP Web server.
 
 - RUN `composer install`
 
