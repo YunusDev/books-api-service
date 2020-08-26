@@ -26,5 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         BookResource::withoutWrapping();
+
+
     }
 }

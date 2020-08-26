@@ -7,6 +7,7 @@ use App\Http\Resources\BookResource;
 use App\Model\Author;
 use App\Model\Book;
 use App\Traits\ApiResponser;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -15,9 +16,22 @@ class BookController extends Controller
 
     use ApiResponser;
 
-    public function index(){
+    public function index(Request $request){
 
-        $books = Book::with('authors')->get();
+        $params = $request->query->all();
+
+        isset($params['name']) ? $name = $params['name'] : $name = "";
+        isset($params['country']) ? $country = $params['country'] : $country = "";
+        isset($params['publisher']) ? $publisher = $params['publisher'] : $publisher = "";
+        isset($params['release_date']) ? $release_date = $params['release_date'] : $release_date = "";
+
+        $books = Book::
+                        query()
+                        ->where('name', 'LIKE', "%{$name}%")
+                        ->where('country', 'LIKE', "%{$country}%")
+                        ->where('publisher', 'LIKE', "%{$publisher}%")
+                        ->where('release_date', 'LIKE', "%{$release_date}%")
+                        ->get();
 
         $books_collection = BookResource::collection($books);
 

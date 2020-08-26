@@ -13,7 +13,7 @@ class BookStoreTest extends TestCase
     use RefreshDatabase;
 
     // /api/v1/external-books - GET
-    public function testSuccessForFethchingExternalBooks(){
+    public function testSuccessForFetchingExternalBooks(){
 
         $this->json('GET', '/api/v1/external-books')
             ->assertStatus(200)
@@ -27,7 +27,7 @@ class BookStoreTest extends TestCase
     }
 
     // /api/v1/external-books - GET
-    public function testSuccessForFethchingExternalBooksWithNameQuery(){
+    public function testSuccessForFetchingExternalBooksWithNameQuery(){
 
         $name = "A Game of Thrones";
 
@@ -123,6 +123,47 @@ class BookStoreTest extends TestCase
         $this->createABook();
 
         $response =  $this->json('GET', '/api/v1/books')
+            ->assertStatus(200)
+            ->assertJson([
+                "status_code" => 200,
+                "status" => "success",
+                "data" => [
+
+                    [
+                        "name" => "Twilight",
+                        "isbn" => "484-848499484",
+                        "country" => "Nigeria",
+                        "number_of_pages" => 250,
+                        "publisher" => "Bologun Tolani",
+                        "release_date" => "2019-05-12",
+                        "authors" => [
+                            "Micheal Eva"
+                        ]
+
+                    ]
+
+                ]
+
+            ]);
+
+        $data = $response->getData();
+
+        $books = $data->data;
+
+        $this->assertEquals(count($books), 1);
+
+    }
+
+    // /api/v1/books - GET
+    public function testSuccessForFetchingAllBooksWIthQuery()
+    {
+
+        $this->createABook();
+
+        $search_name = "Twilight";
+        $search_country = "Nigeria";
+
+        $response =  $this->json('GET', '/api/v1/books?name=' . $search_name ."&country=" .$search_country )
             ->assertStatus(200)
             ->assertJson([
                 "status_code" => 200,
