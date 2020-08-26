@@ -1,5 +1,7 @@
 **To get the project up and running, Pls Do the following After Cloning:**
 
+(PS) Web server used is XAMPP.
+
 - RUN `composer install`
 
 - RUN `cp .env.example .env` _(Then setup ur .env file)_ 
@@ -11,7 +13,7 @@ or duplicate the `.env.example` file and name the duplicated one `.env`
 
 - RUN `php artisan migrate`
 
-- RUN `php artisan db:seed` _(Seed some files to your db)_
+- RUN `php artisan db:seed` _(Seed some data to your db)_
 
 - RUN `php artisan serve` _(To start the application)_
 
